@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Password Strength</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      body {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      input {
+        padding: 10px 10px;
+      }
+      ul {
+        list-style: none;
+        padding-left: 0;
+      }
+      .fa-circle-xmark {
+        visibility: hidden;
+        
+      }
+      .fa-circle-check {
+        visibility: hidden;
+      }
+      .fl {
+        height: 10vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+      }
+      .main {
+        display: flex;
+        gap: 50px;
+        align-items: center;
+        justify-content: center;
+      }
+      .col {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+      }
+      .icon{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        visibility: ;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <div class="fl">
+        <div class="col">
+          <label>Enter Password</label>
+          <div class="icon"><input type="password" placeholder="Enter Password" />
+            <i id="chk" class="fa-regular fa-circle-check"></i>
+          </div>
+        </div>
+        
+      </div>
+      <div class="fl">
+        <div class="col">
+          <label for="">Re-Enter password</label>
+          <div class="icon"><input type="password" placeholder="Re-Enter Password" />
+            <i id="rchk" class="fa-regular fa-circle-check"></i></div>
+        </div>
+        
+      </div>
+    </div>
+    <ul>
+      <li>
+        <i class="fa-regular fa-circle-xmark"></i> At least 8 characters—the
+        longer, the better.
+      </li>
+      <li>
+        <i class="fa-regular fa-circle-xmark"></i> A mixture of both uppercase
+        and lowercase letters.
+      </li>
+      <li>
+        <i class="fa-regular fa-circle-xmark"></i> A mixture of numbers.
+      </li>
+      <li>
+        <i class="fa-regular fa-circle-xmark"></i> Inclusion of at least one
+        special character, e.g., !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?
+      </li>
+    </ul>
+
+    <script>
+      const ipr = document.getElementsByTagName("input");
+      const lir = document.querySelectorAll("li");
+      const ir = document.getElementsByTagName("i");
+      let tk = document.getElementById("chk");
+      let rtk = document.getElementById("rchk");
+      let ulr= document.getElementsByTagName("ul")[0]
+
+      const validatePassword = () => {
+        const password = ipr[0].value;
+        const rePassword = ipr[1].value;
+        const regLower = /[a-z]+/;
+        const regUpper = /[A-Z]+/;
+        const regNumber = /[0-9]+/;
+        const regSpecial = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+
+       
+        if (password.length >= 8) {
+          ir[2].style.visibility = "visible";
+          ir[2].style.color = "green";
+          ir[2].className = "fa-regular fa-circle-check";
+        } else {
+          ir[2].style.visibility = "visible";
+          ir[2].style.color = "red";
+          ir[2].className = "fa-regular fa-circle-xmark";
+        }
+
+     
+        if (regLower.test(password) && regUpper.test(password)) {
+          ir[3].style.visibility = "visible";
+          ir[3].style.color = "green";
+          ir[3].className = "fa-regular fa-circle-check";
+        } else {
+          ir[3].style.visibility = "visible";
+          ir[3].style.color = "red";
+          ir[3].className = "fa-regular fa-circle-xmark";
+        }
+
+      
+        if (regNumber.test(password)) {
+          ir[4].style.visibility = "visible";
+          ir[4].style.color = "green";
+          ir[4].className = "fa-regular fa-circle-check";
+        } else {
+          ir[4].style.visibility = "visible"
+          ir[4].style.color = "red";
+          ir[4].className = "fa-regular fa-circle-xmark";
+        }
+
+      
+        if (regSpecial.test(password)) {
+          ir[5].style.visibility = "visible";
+          ir[5].style.color = "green";
+          ir[5].className = "fa-regular fa-circle-check";
+        } else {
+          ir[5].style.visibility = "visible";
+          ir[5].style.color = "red";
+          ir[5].className = "fa-regular fa-circle-xmark";
+        }
+
+        if (
+          password.length >= 8 &&
+          regLower.test(password) &&
+          regUpper.test(password) &&
+          regNumber.test(password) &&
+          regSpecial.test(password)
+        ) {
+          tk.style.visibility = "visible";
+          tk.style.color = "green";
+          ulr.style.display="none"
+         
+        } else {
+          tk.style.visibility = "hidden";
+          ulr.style.display="inline"
+        }
+
+        
+        if (password === rePassword && rePassword !== "") {
+          rtk.style.visibility = "visible";
+          rtk.style.color = "green";
+        } else {
+          rtk.style.visibility = "hidden";
+        }
+      };
+
+      ipr[0].addEventListener("input", validatePassword);
+      ipr[1].addEventListener("input", validatePassword);
+    </script>
+  </body>
+</html>
